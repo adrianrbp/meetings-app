@@ -35,6 +35,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'django_cotton',
     'tailwind',
+    'theme',
 ]
 
 LOCAL_APPS = [
@@ -84,10 +85,10 @@ TEMPLATES = [
 STATIC_ROOT = str(BASE_DIR('staticfiles'))
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
-    str(APPS_DIR.path('static')),
+    str(BASE_DIR.path('theme/static')),
 ]
 
-
+TAILWIND_APP_NAME = 'theme'
 
 
 
