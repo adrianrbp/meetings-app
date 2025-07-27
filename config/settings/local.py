@@ -1,26 +1,35 @@
 from .base import *
+from .base import env
 
-# 2. Local Dev Settings
+# I - Foundation
+## 2. Security & App Identity
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-3ad&4b*g9v#i0&@o!2xp!6258be+^2jmnb)s32q2zg_t-mau%9")
 DEBUG = True
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-
-# 3. Dev-only apps (e.g., debug toolbar)
+ALLOWED_HOSTS = [
+    "localhost",
+    "0.0.0.0",
+    "127.0.0.1",
+]
+# III - Inner
+## 4. Dev-only apps (e.g., debug toolbar)
 # INSTALLED_APPS += [
 #     "debug_toolbar",
 # ]
 
-# 4. Dev-only middleware
+
+# IV - Entry Point + Requests
+## 7. Dev-only middleware
 # MIDDLEWARE += [
 #     "debug_toolbar.middleware.DebugToolbarMiddleware",
 # ]
 
-# 14. Reload Debug Toolbar
+# 7.1. Reload Debug Toolbar
 # INTERNAL_IPS = [
 #     "127.0.0.1",
 # ]
 
-
-# 11. Static & Media files
+# V - View + Files
+# 9. Static & Media files
 # STATICFILES_DIRS += [BASE_DIR / "dev_static"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"

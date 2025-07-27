@@ -1,19 +1,31 @@
+"""
+Base settings to build other settings files upon.
+"""
+
 import os
 from pathlib import Path
+import environ
 
-# 1. Project base directory: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+env = environ.Env()
 
+# I - Foundation
+## 1. Project base directory: BASE_DIR / 'subdir'.
+BASE_DIR = environ.Path(__file__) - 3
+APPS_DIR = BASE_DIR.path('apps')
 
-# 2. Security & App Identity
-# Use environment variables for production
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-3ad&4b*g9v#i0&@o!2xp!6258be+^2jmnb)s32q2zg_t-mau%9")
-DEBUG = True
-ALLOWED_HOSTS = []
+## 2. Dev Config
+DEBUG = env.bool('DJANGO_DEBUG', False)
 
+# II - Global
+## 3. Internationalization (Time zone, language, etc.)
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
 
-# 3. Installed Apps (3rd party, Django core, and your own apps)
-INSTALLED_APPS = [
+# III - Inner
+## 4. Installed Apps (3rd party, Django core, and your own apps)
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -21,7 +33,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
-# 4. Middleware Stack (Request/Response flow control)
+
+THIRD_PARTY_APPS = []
+
+LOCAL_APPS = []
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+# IV - Entry Point + Requests
+# 5. WSGI Entry Point
+WSGI_APPLICATION = 'config.wsgi.application'
+
+## 6. URL Configuration
+ROOT_URLCONF = 'config.urls'
+ADMIN_URL = 'admin/'
+
+
+## 7. Middleware Stack (Request/Response flow control)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -31,14 +59,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-# 5. URL Configuration
-ROOT_URLCONF = 'config.urls'
 
-# 6. Templates (Frontend HTML rendering system)
+# V - View + Files
+## 8. Templates (Frontend HTML rendering system)
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [str(APPS_DIR.path('templates')),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -50,10 +77,20 @@ TEMPLATES = [
         },
     },
 ]
-# 7. WSGI Entry Point
-WSGI_APPLICATION = 'config.wsgi.application'
+## 9. Static files (CSS, JS, Images)
+STATIC_ROOT = str(BASE_DIR('staticfiles'))
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    str(APPS_DIR.path('static')),
+]
 
-# 8. Database (define per environment)
+MEDIA_ROOT = str(APPS_DIR('media'))
+MEDIA_URL = '/media/'
+
+
+
+# VI - Model
+## 10. Database (define per environment)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -61,8 +98,11 @@ DATABASES = {
     }
 }
 
+## 11. Default primary key field type
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# 9. Password validation
+
+## 12. Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -77,17 +117,3 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
-# 10. Internationalization (Time zone, language, etc.)
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
-
-
-# 11. Static files (CSS, JS, Images)
-STATIC_URL = 'static/'
-
-# 12. Default primary key field type
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
