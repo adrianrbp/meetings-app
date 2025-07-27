@@ -1,0 +1,17 @@
+{% load cotton %}
+{% load static tailwind_tags %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>meeting planner</title>
+  {% tailwind_css %}
+</head>
+<body class="bg-white text-gray-800">
+
+  <c-organisms.hero :signup_url="'/signup/'" />
+  <c-organisms.features />
+  <c-organisms.footer />
+
+</body>
+</html>

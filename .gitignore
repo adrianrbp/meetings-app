@@ -36,3 +36,6 @@ staticfiles/
 .coverage
 htmlcov/
 pytest_debug.log
+
+# Flake
+flake.lock
