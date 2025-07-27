@@ -7,7 +7,7 @@ from .base import env
 
 # I - Foundation
 ## 2. Security & App Identity
-SECRET_KEY = env("DJANGO_SECRET_KEY", "django-insecure-3ad&4b*g9v#i0&@o!2xp!6258be+^2jmnb)s32q2zg_t-mau%9")
+SECRET_KEY = env("DJANGO_SECRET_KEY", default="django-insecure-3ad&4b*g9v#i0&@o!2xp!6258be+^2jmnb)s32q2zg_t-mau%9")
 DEBUG = True
 ALLOWED_HOSTS = [
     "localhost",
@@ -35,8 +35,7 @@ ALLOWED_HOSTS = [
 # V - View + Files
 # 9. Static & Media files
 # STATICFILES_DIRS += [BASE_DIR / "dev_static"]
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
-
+MEDIA_ROOT = str(APPS_DIR('media'))
+MEDIA_URL = '/media/'
 # 13. Local email backend (prints to console)
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

@@ -12,7 +12,7 @@ BASE_DIR = environ.Path(__file__) - 3
 APPS_DIR = BASE_DIR.path('apps')
 
 ## 2. Dev Config
-DEBUG = env.bool('DJANGO_DEBUG', False)
+DEBUG = env.bool('DJANGO_DEBUG', default=False)
 
 # II - Global
 ## 3. Internationalization (Time zone, language, etc.)
@@ -32,9 +32,13 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'django_cotton',
+]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'apps.landing',
+]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -82,8 +86,7 @@ STATICFILES_DIRS = [
     str(APPS_DIR.path('static')),
 ]
 
-MEDIA_ROOT = str(APPS_DIR('media'))
-MEDIA_URL = '/media/'
+
 
 
 
