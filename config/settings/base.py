@@ -2,8 +2,6 @@
 Base settings to build other settings files upon.
 """
 
-import os
-from pathlib import Path
 import environ
 
 env = environ.Env()
@@ -41,7 +39,7 @@ LOCAL_APPS = []
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 # IV - Entry Point + Requests
-# 5. WSGI Entry Point
+## 5. WSGI Entry Point
 WSGI_APPLICATION = 'config.wsgi.application'
 
 ## 6. URL Configuration
