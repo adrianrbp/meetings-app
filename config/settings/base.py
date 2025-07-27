@@ -34,6 +34,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'django_cotton',
+    'tailwind',
 ]
 
 LOCAL_APPS = [
